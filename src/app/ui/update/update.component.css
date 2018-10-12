@@ -1,0 +1,12 @@
+table
+{
+    width:500px;
+}
+
+.borderless td, .borderless th {
+    border: none;
+}
+
+.btn-space {
+    margin-right: 10px;
+}

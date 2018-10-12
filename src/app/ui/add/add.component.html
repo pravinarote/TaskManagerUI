@@ -1,0 +1,37 @@
+<div style="text-align:left" class="container">
+  <table class="table borderless">
+    <tr>
+      <td>Task</td>
+      <td><input type="text" [(ngModel)]="item.TaskName" required class="form-control"></td>
+    </tr>
+    <tr>
+        <td>Priority</td>
+        <td><input type="range" [(ngModel)]="item.Priority" min="1" max="30" step="1" value="5" class="form-control"></td>
+    </tr>
+    <tr>
+        <td>Parent Task</td>
+        <td>
+            <select [(ngModel)]="item.ParentTaskId">
+                <option [value]="taskItem.TaskId" *ngFor="let taskItem of taskList">{{taskItem.TaskName}}</option>
+            </select>
+        </td>
+        
+    </tr>
+    <tr>
+        <td>Start Date</td>
+        <td><input type="date" [(ngModel)]="item.StartDate" class="form-control" ></td>
+    </tr>
+    <tr>
+        <td>End Date</td>
+        <td><input type="date" [(ngModel)]="item.EndDate"  class="form-control"></td>
+    </tr>
+    <tr>
+        <td></td>
+        <td>
+          <button (click)="createTask(item)" class="btn btn-default btn-space">Add Task</button>
+          <button (click)="Reset()" class="btn btn-default">Reset</button>
+        </td>
+      </tr>
+  </table>
+
+</div>
