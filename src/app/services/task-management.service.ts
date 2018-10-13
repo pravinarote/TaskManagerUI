@@ -6,7 +6,7 @@ import { map, catchError, filter, scan } from 'rxjs/operators'
 import { webSocket } from 'rxjs/webSocket';
 import { Task } from '../models/task';
 
-const endpoint = 'http://localhost:51998/TaskManager/';
+const endpoint = 'http://localhost/TM/TaskManager/';
 const httpOptions = {
   headers: new HttpHeaders({
     'Content-Type':'application/json'
@@ -111,7 +111,7 @@ export class TaskManagementService {
   deleteTask(id)  {
     
     this.http.delete(endpoint + "DeleteTask/" + id).subscribe(data=> {
-      
+      this.serviceResponseReceived.next(true);
     });
   }
 

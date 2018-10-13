@@ -22,10 +22,16 @@ export class ViewComponent implements OnInit {
    endTask(id){
     console.log('End Task val : ' + id);
     this.taskService.endTask(id);
+    this.taskService.getTasks().subscribe((data: Task[])=>{
+      this.getTaskList();
+    });
    }
 
    deleteTask(id) {
     this.taskService.deleteTask(id);
+    this.taskService.getTasks().subscribe((data: Task[])=>{
+      this.getTaskList();
+    });
    }
 
   ngOnInit() {
