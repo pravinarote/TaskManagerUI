@@ -1,55 +1,55 @@
 <div class="container align-left">
-    <div class="table-responsive">
-      <table class="table borderless">
-        <tr>
-          <td>Task</td>
-          <td colspan="2"><input type="text" [(ngModel)]="taskSearch" class="form-control"></td>
-          <td></td>
-          <td>Parent Task</td>
-          <td colspan="2"><input type="text" [(ngModel)]="parentTaskSearch"  class="form-control"></td>
-        </tr>
-        </table>
-    </div>
-    <div class="table-responsive">
-      <table class="table borderless">
+  <div class="table-responsive">
+    <table class="table borderless">
       <tr>
-        <td>Priority from</td>
-        <td><input type="text" [(ngModel)]="priorityFromSearch" class="form-control"></td>
-        <td>Priority to</td>
-        <td><input type="text" [(ngModel)]="priorityToSearch" class="form-control"></td>
-        <td>Start Date</td>
-        <td><input type="date" [(ngModel)]="startDateSearch" class="form-control" ></td>
-        <td>End Date</td>
-        <td><input type="date" [(ngModel)]="endDateSearch" class="form-control"></td>
+        <td>Task</td>
+        <td colspan="2"><input type="text" [(ngModel)]="taskSearch" class="form-control"></td>
+        <td></td>
+        <td>Parent Task</td>
+        <td colspan="2"><input type="text" [(ngModel)]="parentTaskSearch"  class="form-control"></td>
       </tr>
       </table>
   </div>
-
   <div class="table-responsive">
-    <table class="table">
-        <thead class="thead-light">
-          <tr>
-            <th>Task</th>
-            <th>Parent</th>
-            <th>Priority</th>
-            <th>Start</th>
-            <th>End</th>
-            <th></th>
-            <th></th>
-          </tr>
-        </thead>
-        <tbody>
-         <tr *ngFor="let taskItem of (taskList|taskNameFilterPipe: taskSearch:parentTaskSearch:priorityFromSearch:priorityToSearch:startDateSearch:endDateSearch)" >
-            <td>{{taskItem.TaskName}}</td>
-            <td>{{taskItem.ParentTaskName}}</td>
-            <td>{{taskItem.Priority}}</td>
-            <td>{{taskItem.StartDate | date : 'MM/dd/yyyy'}}</td>
-            <td>{{taskItem.EndDate | date : 'MM/dd/yyyy'}}</td>
-            <td><button (click)="updateTask(taskItem.TaskId)" *ngIf="!taskItem.IsTaskEnded" class="btn btn-default btn-space">Edit Task</button></td>
-            <td><button (click)="endTask(taskItem.TaskId)" *ngIf="!taskItem.IsTaskEnded" class="btn btn-default btn-space">End Task</button></td>
-            <td><button (click)="deleteTask(taskItem.TaskId)" *ngIf="taskItem.IsTaskEnded" class="btn btn-default btn-space">Delete</button></td>
-          </tr>
-        </tbody>
+    <table class="table borderless">
+    <tr>
+      <td>Priority from</td>
+      <td><input type="text" [(ngModel)]="priorityFromSearch" class="form-control"></td>
+      <td>Priority to</td>
+      <td><input type="text" [(ngModel)]="priorityToSearch" class="form-control"></td>
+      <td>Start Date</td>
+      <td><input type="date" [(ngModel)]="startDateSearch" class="form-control" ></td>
+      <td>End Date</td>
+      <td><input type="date" [(ngModel)]="endDateSearch" class="form-control"></td>
+    </tr>
     </table>
-  </div>
+</div>
+
+<div class="table-responsive">
+  <table class="table">
+      <thead class="thead-light">
+        <tr>
+          <th>Task</th>
+          <th>Parent</th>
+          <th>Priority</th>
+          <th>Start</th>
+          <th>End</th>
+          <th></th>
+          <th></th>
+        </tr>
+      </thead>
+      <tbody>
+       <tr *ngFor="let taskItem of (taskList|taskNameFilterPipe: taskSearch:parentTaskSearch:priorityFromSearch:priorityToSearch:startDateSearch:endDateSearch)" >
+          <td>{{taskItem.TaskName}}</td>
+          <td>{{taskItem.ParentTaskName}}</td>
+          <td>{{taskItem.Priority}}</td>
+          <td>{{taskItem.StartDate | date : 'MM/dd/yyyy'}}</td>
+          <td>{{taskItem.EndDate | date : 'MM/dd/yyyy'}}</td>
+          <td><button (click)="updateTask(taskItem.TaskId)" *ngIf="!taskItem.IsTaskEnded" class="btn btn-success btn-space">Edit Task</button></td>
+          <td><button (click)="endTask(taskItem.TaskId)" *ngIf="!taskItem.IsTaskEnded" class="btn btn-success btn-space">End Task</button></td>
+          <td><button (click)="deleteTask(taskItem.TaskId)" *ngIf="taskItem.IsTaskEnded" class="btn btn-success btn-space">Delete</button></td>
+        </tr>
+      </tbody>
+  </table>
+</div>
 </div>

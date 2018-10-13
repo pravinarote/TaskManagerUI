@@ -10,8 +10,15 @@ import { TaskManagementService } from '../../services/task-management.service'
 })
 export class ViewComponent implements OnInit {
   taskList : Task[] = [];
+  taskSearch :string;
+  parentTaskSearch : string;
+  priorityFromSearch : number;
+  priorityToSearch : number;
+  startDateSearch : any;
+  endDateSearch : any;
 
-  constructor(private taskService : TaskManagementService, private route: ActivatedRoute, private _router: Router) {
+  constructor(private taskService : TaskManagementService, private route: ActivatedRoute, 
+    private _router: Router) {
    }
 
    updateTask(id) {
@@ -22,14 +29,14 @@ export class ViewComponent implements OnInit {
    endTask(id){
     console.log('End Task val : ' + id);
     this.taskService.endTask(id);
-    this.taskService.getTasks().subscribe((data: Task[])=>{
+    this.taskService.serviceResponseReceived.subscribe((value) => {
       this.getTaskList();
     });
    }
 
    deleteTask(id) {
     this.taskService.deleteTask(id);
-    this.taskService.getTasks().subscribe((data: Task[])=>{
+    this.taskService.serviceResponseReceived.subscribe((value) => {
       this.getTaskList();
     });
    }

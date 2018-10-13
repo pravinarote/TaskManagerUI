@@ -2,7 +2,7 @@ import { Component, OnInit } from '@angular/core';
 import {Task} from '../../models/task'
 import { TaskManagementService } from '../../services/task-management.service'
 import {ActivatedRoute, Router} from '@angular/router'
-import { DatePipe } from '@angular/common';
+import { FormGroup, FormBuilder, Validators} from '@angular/forms';
 
 @Component({
   selector: 'app-update',
@@ -12,13 +12,37 @@ import { DatePipe } from '@angular/common';
 export class UpdateComponent implements OnInit {
   item:Task;
   taskList : Task[] = [];
-  constructor(private taskService : TaskManagementService, private route: ActivatedRoute, private _router: Router) {
+  angularForm: FormGroup;
+  constructor(private taskService : TaskManagementService, private route: ActivatedRoute, 
+    private _router: Router, private fb: FormBuilder) {
     this.item = new Task();
+    this.createForm();
    }
 
-  ngOnInit() {
+   createForm() {
+    this.angularForm = this.fb.group({
+      name: ['', Validators.required ],
+      priority : [],
+      parentTask : [],
+      startDate : ['', Validators.required],
+      endDate : ['', Validators.required]
+    });
+  }
+
+error:any={isError:false,errorMessage:''};
+
+compareTwoDates() {
+   if(new Date(this.angularForm.controls['endDate'].value)<new Date(this.angularForm.controls['startDate'].value)){
+      this.error={isError:true,errorMessage:'End Date should not greater than start date.'};
+   }
+}
+
+
+  ngOnInit () {
+    setTimeout(() => {
     this.getParentTasks();
     this.getTask();
+    });
   }
 
 

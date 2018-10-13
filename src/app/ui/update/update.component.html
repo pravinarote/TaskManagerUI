@@ -1,37 +1,62 @@
-<div style="text-align:left" class="container">
-  <table class="table borderless">
-    <tr>
-      <td>Task</td>
-      <td><input id="taskName" name="taskName"  type="text" [(ngModel)]="item.TaskName" required class="form-control"></td>
-    </tr>
-    <tr>
-        <td>Priority</td>
-        <td><input type="range" [(ngModel)]="item.Priority" min="1" max="30" step="1" value="5" class="form-control"></td>
-    </tr>
-    <tr>
-        <td>Parent Task</td>
-        <td>
-            <select [(ngModel)]="item.ParentTaskId">
-                <option [value]="taskItem.TaskId" *ngFor="let taskItem of taskList">{{taskItem.TaskName}}</option>
+<div class="container" style="text-align:left">
+    <form [formGroup]="angularForm" novalidate>
+          <div class="form-group">
+              <label>Task</label>
+              <input class="form-control" [(ngModel)]="item.TaskName" formControlName="name" type="text">
+          </div>
+          <div *ngIf="angularForm.controls['name'].invalid && (angularForm.controls['name'].dirty || angularForm.controls['name'].touched)" class="alert alert-danger">
+              <div *ngIf="angularForm.controls['name'].errors.required">
+                Task name is required.
+              </div>
+          </div>
+
+        <div class="form-group">
+            <label>Priority</label>
+            <input class="form-control" [(ngModel)]="item.Priority" min="1" max="30" step="1" value="3"
+             formControlName="priority" type="range">
+        </div>
+
+        <div class="form-group">
+            <label>Parent Task</label>
+            <select [(ngModel)]="item.ParentTaskId" class="form-control" formControlName="parentTask">
+                    <option [value]="taskItem.TaskId" *ngFor="let taskItem of taskList">{{taskItem.TaskName}}</option>
             </select>
-        </td>
-    </tr>
-    <tr>
-        <td>Start Date</td>
-        <td><input type="date" [ngModel]="item.StartDate | date:'yyyy-MM-dd'"  (ngModelChange)="item.StartDate = $event"
-            [value]="item.StartDate | date:'yyyy-MM-dd'" #item.StartDate="ngModel" required class="form-control" ></td>
-    </tr>
-    <tr>
-        <td>End Date</td>
-        <td><input type="date" [ngModel]="item.EndDate | date:'yyyy-MM-dd'" (ngModelChange)="item.EndDate = $event"
-            [value]="item.EndDate | date:'yyyy-MM-dd'" #item.EndDate="ngModel" required class="form-control"></td>
-    </tr>
-    <tr>
-        <td></td>
-        <td>
-          <button (click)="updateTask(item)" class="btn btn-default btn-space">Update</button>
-          <button (click)="Reset()" class="btn btn-default">Reset</button>
-        </td>
-      </tr>
-  </table>
-</div>
+        </div>
+
+        <div class="form-group">
+            <label>Start Date</label>
+            <input class="form-control" [ngModel]="item.StartDate | date:'yyyy-MM-dd'"  
+            (ngModelChange)="item.StartDate = $event"
+            [value]="item.StartDate | date:'yyyy-MM-dd'"  formControlName="startDate" type="date">
+        </div>
+        <div *ngIf="angularForm.controls['startDate'].invalid && (angularForm.controls['startDate'].dirty || angularForm.controls['startDate'].touched)" class="alert alert-danger">
+            <div *ngIf="angularForm.controls['startDate'].errors.required">
+                Start date is required.
+            </div>
+        </div>
+
+        <div class="form-group">
+            <label>End Date</label>
+            <input class="form-control" [ngModel]="item.EndDate | date:'yyyy-MM-dd'" 
+            (ngModelChange)="item.EndDate = $event"
+            [value]="item.EndDate | date:'yyyy-MM-dd'"  formControlName="endDate" type="date" (blur)="compareTwoDates()">
+        </div>
+        <div *ngIf="angularForm.controls['endDate'].invalid && (angularForm.controls['endDate'].dirty || angularForm.controls['endDate'].touched)" class="alert alert-danger">
+            <div *ngIf="angularForm.controls['endDate'].errors.required">
+                End date is required.
+            </div>
+        </div>
+        <div *ngIf="error.isError" class="alert alert-danger">
+                {{ error.errorMessage }}
+        </div>
+             
+    
+
+        <button type="submit" (click)="updateTask(item)"
+            [disabled]="angularForm.pristine || angularForm.invalid || error.isError" class="btn btn-success btn-space">
+            Update Task
+        </button>
+        <button type="reset" class="btn btn-success">Reset</button>
+    </form>
+    <br />
+  </div>

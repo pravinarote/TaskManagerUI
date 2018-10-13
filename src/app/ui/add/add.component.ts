@@ -2,7 +2,7 @@ import { Component, OnInit } from '@angular/core';
 import {Task} from '../../models/task'
 import { TaskManagementService } from '../../services/task-management.service'
 import {Router} from '@angular/router'
-import { FormControl, FormGroup, FormBuilder, Validators} from '@angular/forms';
+import { FormGroup, FormBuilder, Validators} from '@angular/forms';
 
 @Component({
   selector: 'app-add',
@@ -21,9 +21,24 @@ export class AddComponent implements OnInit {
    createForm() {
     this.angularForm = this.fb.group({
       name: ['', Validators.required ],
-      priority : []
+      priority : [],
+      parentTask : [],
+      startDate : ['', Validators.required],
+      endDate : ['', Validators.required]
     });
   }
+
+error:any={isError:false,errorMessage:''};
+
+compareTwoDates() {
+   if(new Date(this.angularForm.controls['endDate'].value)<new Date(this.angularForm.controls['startDate'].value)){
+      this.error={isError:true,errorMessage:'End Date should not greater than start date.'};
+   }
+   else {
+    this.error={isError:false};
+   }
+}
+
 
   ngOnInit() {
     this.getParentTasks();
@@ -43,8 +58,9 @@ export class AddComponent implements OnInit {
     this.taskService.serviceResponseReceived.subscribe((value) => {
       this._router.navigateByUrl('/View');
     });
-    
-    }
+  }
+
+  
   
 
 }
