@@ -1,5 +1,6 @@
 import { BrowserModule } from '@angular/platform-browser';
 import { NgModule } from '@angular/core';
+import  { DataTableModule } from  'angular-6-datatable'
 
 import { FormsModule,ReactiveFormsModule } from '@angular/forms'
 import { RouterModule, Routes } from '@angular/router'
@@ -30,7 +31,8 @@ const appRoutes:Routes=[
     
   ],
   imports: [
-    BrowserModule, FormsModule, RouterModule.forRoot(appRoutes), HttpClientModule, ReactiveFormsModule
+    BrowserModule, FormsModule, RouterModule.forRoot(appRoutes),
+     HttpClientModule, ReactiveFormsModule,DataTableModule
   ],
   providers: [TaskManagementService],
   bootstrap: [AppComponent]

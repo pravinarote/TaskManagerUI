@@ -26,20 +26,37 @@
 </div>
 
 <div class="table-responsive">
-  <table class="table">
+  <table class="table" [mfData]="taskList" #mf="mfDataTable" [mfRowsOnPage]="5">
       <thead class="thead-light">
         <tr>
-          <th>Task</th>
-          <th>Parent</th>
-          <th>Priority</th>
-          <th>Start</th>
-          <th>End</th>
+          <th>
+            <mfDefaultSorter by="TaskName">Task</mfDefaultSorter>
+          </th>
+          <th>
+            <mfDefaultSorter by="ParentTaskName">Parent</mfDefaultSorter>
+          </th>
+          <th>
+            <mfDefaultSorter by="Priority">Priority</mfDefaultSorter>
+          </th>
+          <th>
+            <mfDefaultSorter by="StartDate">Start</mfDefaultSorter>
+          </th>
+          <th>
+            <mfDefaultSorter by="EndDate">End</mfDefaultSorter>
+            </th>
           <th></th>
           <th></th>
         </tr>
       </thead>
       <tbody>
-       <tr *ngFor="let taskItem of (taskList|taskNameFilterPipe: taskSearch:parentTaskSearch:priorityFromSearch:priorityToSearch:startDateSearch:endDateSearch)" >
+        <tfoot>
+          <tr>
+            <td colspan="7">
+              <mfBootstrapPaginator [rowsOnPageSet]="[5,10,25]"></mfBootstrapPaginator>
+            </td>
+          </tr>
+        </tfoot>
+       <tr *ngFor="let taskItem of (mf.data|taskNameFilterPipe: taskSearch:parentTaskSearch:priorityFromSearch:priorityToSearch:startDateSearch:endDateSearch)" >
           <td>{{taskItem.TaskName}}</td>
           <td>{{taskItem.ParentTaskName}}</td>
           <td>{{taskItem.Priority}}</td>
