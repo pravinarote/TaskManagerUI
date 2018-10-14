@@ -5,6 +5,7 @@ import { FormsModule } from '@angular/forms';
 import { TaskNameFilterPipePipe } from '../../pipe/task-name-filter-pipe.pipe';
 import { RouterTestingModule } from '@angular/router/testing';
 import { HttpClientModule} from '@angular/common/http'
+import  { DataTableModule } from  'angular-6-datatable'
 
 import { ViewComponent } from './view.component';
 import { by } from 'protractor';
@@ -17,7 +18,7 @@ describe('ViewComponent', () => {
 
   beforeEach(async(() => {
     TestBed.configureTestingModule({
-      imports: [ FormsModule,RouterTestingModule,HttpClientModule ],
+      imports: [ FormsModule,RouterTestingModule,HttpClientModule,DataTableModule ],
       declarations: [ ViewComponent,TaskNameFilterPipePipe ]
     })
     .compileComponents();
