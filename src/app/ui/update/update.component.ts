@@ -10,19 +10,29 @@ import { FormGroup, FormBuilder, Validators} from '@angular/forms';
   styleUrls: ['./update.component.css']
 })
 export class UpdateComponent implements OnInit {
-  item:Task;
+
+  item:Task ={
+    TaskName : null,
+    ParentTaskId : 0,
+    ParentTaskName : null,
+    TaskId : 0,
+    Priority : null,
+    StartDate : null,
+    EndDate : null,
+    IsTaskEnded : false
+  };
+
   taskList : Task[] = [];
   angularForm: FormGroup;
   constructor(private taskService : TaskManagementService, private route: ActivatedRoute, 
     private _router: Router, private fb: FormBuilder) {
-    this.item = new Task();
-    this.createForm();
+      this.createForm();
    }
 
    createForm() {
     this.angularForm = this.fb.group({
       name: ['', Validators.required ],
-      priority : [],
+      priority : ['',Validators.required],
       parentTask : [],
       startDate : ['', Validators.required],
       endDate : ['', Validators.required]
@@ -31,20 +41,17 @@ export class UpdateComponent implements OnInit {
 
 error:any={isError:false,errorMessage:''};
 
-compareTwoDates() {
-   if(new Date(this.angularForm.controls['endDate'].value)<new Date(this.angularForm.controls['startDate'].value)){
-      this.error={isError:true,errorMessage:'End Date should not greater than start date.'};
-   }
-}
+  compareTwoDates() {
+    if(new Date(this.angularForm.controls['endDate'].value)<new Date(this.angularForm.controls['startDate'].value)){
+        this.error={isError:true,errorMessage:'End Date should not greater than start date.'};
+    }
+  }
 
 
   ngOnInit () {
-    setTimeout(() => {
     this.getParentTasks();
     this.getTask();
-    });
   }
-
 
   getParentTasks() {
     this.taskList = [];

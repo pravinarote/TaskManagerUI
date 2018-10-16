@@ -21,7 +21,7 @@ export class AddComponent implements OnInit {
    createForm() {
     this.angularForm = this.fb.group({
       name: ['', Validators.required ],
-      priority : [],
+      priority : ['',Validators.required],
       parentTask : [],
       startDate : ['', Validators.required],
       endDate : ['', Validators.required]
