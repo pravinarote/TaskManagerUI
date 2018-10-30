@@ -5,3 +5,7 @@
 .align-left{
     text-align:left;
 }
+
+.font-bold {
+    font-weight: bold
+}

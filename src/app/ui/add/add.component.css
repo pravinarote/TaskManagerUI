@@ -1,6 +1,5 @@
-table
-{
-    width:500px;
+.container-align {
+    text-align:left;
 }
 
 .borderless td, .borderless th {
@@ -9,4 +8,8 @@ table
 
 .btn-space {
     margin-right: 10px;
+}
+
+.top-margin {
+    margin-top: 10px;
 }
